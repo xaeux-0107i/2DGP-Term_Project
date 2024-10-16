@@ -10,6 +10,16 @@ class Background:
     def update(self):
         pass
 
+class Flame:
+    def __init__(self):
+        self.image = load_image('flame.png')
+        if self.image is None:
+            print("배경 이미지 로드 실패")
+    def draw(self):
+        self.image.clip_draw(0, 0, 860, 316, 400, 200, 800, 400)
+    def update(self):
+        pass
+
 def handle_events():
     global running
     events = get_events()
@@ -23,12 +33,15 @@ def reset_world():
     global running
     global back_ground
     global world
+    global flame
 
     running = True
     world = []
 
     back_ground = Background()
     world.append(back_ground)
+    flame = Flame()
+    world.append(flame)
 
 def update_world():
     for o in world:
