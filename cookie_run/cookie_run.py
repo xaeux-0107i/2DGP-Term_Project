@@ -20,6 +20,34 @@ class Flame:
     def update(self):
         pass
 
+class Fence:
+    def __init__(self):
+        self.image = load_image('oven_fence.png')
+        if self.image is None:
+            print("배경 이미지 로드 실패")
+    def draw(self):
+        self.image.clip_draw(0, 0, 124, 120, 50, 40, 100, 80)
+    def update(self):
+        pass
+
+class Cookie:
+    def __init__(self):
+        self.frame = 0
+        self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
+        self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
+        self.state = 2 # 0 - 달리기 1 - 점프 2- 슬라이딩 3 - 캐릭터 사망
+    def draw(self):
+        if self.state == 0:
+            self.image_running.clip_draw(1 + self.frame + 270*self.frame, 0, 270, 268, 100, 180, 200, 200)
+        if self.state == 2:
+            self.image_sliding.clip_draw( self.frame + 269*self.frame, 0, 269, 268, 100, 180, 200, 200)
+    def update(self):
+        if self.state == 0:
+            self.frame = (self.frame + 1) % 4
+        if self.state == 2:
+            self.frame = (self.frame + 1) % 2
+        pass
+
 def handle_events():
     global running
     events = get_events()
@@ -34,6 +62,8 @@ def reset_world():
     global back_ground
     global world
     global flame
+    global fence
+    global cookie
 
     running = True
     world = []
@@ -42,6 +72,12 @@ def reset_world():
     world.append(back_ground)
     flame = Flame()
     world.append(flame)
+    fence = Fence()
+    world.append(fence)
+    cookie = Cookie()
+    world.append(cookie)
+
+
 
 def update_world():
     for o in world:
@@ -63,6 +99,7 @@ while running:
     handle_events()
     update_world()
     render_world()
+    delay(0.05)
 
 close_canvas()
 
