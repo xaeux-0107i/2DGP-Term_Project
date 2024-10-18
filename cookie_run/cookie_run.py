@@ -34,36 +34,43 @@ class Cookie:
     def __init__(self):
         self.frame = 0
         self.jump_count = 0
-        self.x = 200
+        self.x = 170
         self.y = 180
         self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
         self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
         self.image_jump = load_image('brave_cookie_jump.png') # 가로 270 세로 268
-        self.state = 1 # 0 - 달리기 1 - 점프 2- 슬라이딩 3 - 캐릭터 사망
+        self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 캐릭터 사망
     def draw(self):
-        if self.state == 0:
-            self.image_running.clip_draw(1 + self.frame + 270*self.frame, 0, 270, 268, self.x, self.y, 200, 200)
-        if self.state == 2:
-            self.image_sliding.clip_draw( self.frame + 269*self.frame, 0, 269, 268, self.x, self.y, 200, 200)
-        if self.state == 1:
-            self.image_jump.clip_draw( self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
+        if self.state == 0: # 달리기
+            self.image_running.clip_draw(self.frame + 2 + 270*self.frame, 0, 260, 268, self.x, self.y, 200, 200)
+        if self.state == 1: # 점프
+            self.image_jump.clip_draw(self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
+        if self.state == 2: # 슬라이딩
+            self.image_sliding.clip_draw(self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
     def update(self):
-        if self.state == 0:
+        if self.state == 0: # 달리기
             self.frame = (self.frame + 1) % 4
-        if self.state == 1:
+        if self.state == 1: # 점프
             self.frame = (self.frame + 1) % 4
-        if self.state == 2:
+        if self.state == 2: # 슬라이딩
             self.frame = (self.frame + 1) % 2
         pass
 
 def handle_events():
     global running
+    global cookie
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            cookie.state = 1  # 점프
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_DOWN:
+            cookie.state = 2 # 슬라이딩
+        elif event.type == SDL_KEYUP and event.key == SDLK_DOWN:
+            cookie.state = 0 # 달리기
 
 def reset_world():
     global running
