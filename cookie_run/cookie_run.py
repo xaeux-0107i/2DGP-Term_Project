@@ -33,16 +33,24 @@ class Fence:
 class Cookie:
     def __init__(self):
         self.frame = 0
+        self.jump_count = 0
+        self.x = 200
+        self.y = 180
         self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
         self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
-        self.state = 2 # 0 - 달리기 1 - 점프 2- 슬라이딩 3 - 캐릭터 사망
+        self.image_jump = load_image('brave_cookie_jump.png') # 가로 270 세로 268
+        self.state = 1 # 0 - 달리기 1 - 점프 2- 슬라이딩 3 - 캐릭터 사망
     def draw(self):
         if self.state == 0:
-            self.image_running.clip_draw(1 + self.frame + 270*self.frame, 0, 270, 268, 100, 180, 200, 200)
+            self.image_running.clip_draw(1 + self.frame + 270*self.frame, 0, 270, 268, self.x, self.y, 200, 200)
         if self.state == 2:
-            self.image_sliding.clip_draw( self.frame + 269*self.frame, 0, 269, 268, 100, 180, 200, 200)
+            self.image_sliding.clip_draw( self.frame + 269*self.frame, 0, 269, 268, self.x, self.y, 200, 200)
+        if self.state == 1:
+            self.image_jump.clip_draw( self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
     def update(self):
         if self.state == 0:
+            self.frame = (self.frame + 1) % 4
+        if self.state == 1:
             self.frame = (self.frame + 1) % 4
         if self.state == 2:
             self.frame = (self.frame + 1) % 2
