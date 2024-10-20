@@ -51,7 +51,14 @@ class Cookie:
         if self.state == 0: # 달리기
             self.frame = (self.frame + 1) % 4
         if self.state == 1: # 점프
-            self.frame = (self.frame + 1) % 4
+            if cookie.frame == 0:
+                pass
+            if cookie.frame == 1:
+                pass
+            if cookie.frame == 2:
+                pass
+            if cookie.frame == 4:
+                pass
         if self.state == 2: # 슬라이딩
             self.frame = (self.frame + 1) % 2
         pass
@@ -67,6 +74,9 @@ def handle_events():
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             cookie.state = 1  # 점프
+            if cookie.jump_count == 0: # 1단 점프
+                cookie.frame = 0
+                cookie.y += 10
         elif event.type == SDL_KEYDOWN and event.key == SDLK_DOWN:
             cookie.state = 2 # 슬라이딩
         elif event.type == SDL_KEYUP and event.key == SDLK_DOWN:
