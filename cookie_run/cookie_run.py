@@ -75,6 +75,30 @@ class Cookie:
                 self.jump_count = 0  # 점프 카운트 초기화
                 self.y = 180
             self.jump_count += 1
+        if self.state == 3: # 2단 점프
+            if self.jump_count < 5:
+                self.frame = 0
+                self.y += self.dy
+                self.dy -= 1
+            elif self.jump_count < 10:
+                self.y += self.dy
+                self.dy -= 1
+                self.frame = 1
+            elif self.jump_count < 20:
+                self.y -= self.dy
+                self.dy += 1
+                self.frame = 2
+            else :
+                self.y -= self.dy
+                self.frame = 4
+
+            if self.y <= 180:
+                self.state = 0  # 점프가 끝나면 달리기 상태로 돌아감
+                self.jump_count = 0  # 점프 카운트 초기화
+                self.y = 180
+
+            self.jump_count += 1
+
         if self.state == 2: # 슬라이딩
             self.frame = (self.frame + 1) % 2
             self.y = 180
@@ -92,6 +116,11 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             if cookie.state == 0 or cookie.state == 2 :
                 cookie.state = 1  # 점프
+                cookie.jump_count = 0
+                cookie.frame = 0
+                cookie.dy = 15
+            elif cookie.state == 1:
+                cookie.state = 3  # 2단 점프
                 cookie.jump_count = 0
                 cookie.frame = 0
                 cookie.dy = 15
