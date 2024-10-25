@@ -40,7 +40,7 @@ class Cookie:
         self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
         self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
         self.image_jump = load_image('brave_cookie_jump.png') # 가로 270 세로 268
-        self.image_jump2 = load_image('brave_cookie_jump2.png') #
+        self.image_jump2 = load_image('brave_cookie_jump2.png')
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         if self.state == 0: # 달리기
@@ -50,7 +50,7 @@ class Cookie:
         if self.state == 2: # 슬라이딩
             self.image_sliding.clip_draw(self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
         if self.state == 3: # 2단 점프
-            self.image_jump2.clip_draw(self.frame + 1 + 270 * self.frame, 0, 265, 268, self.x, self.y, 200, 200)
+            self.image_jump2.clip_draw(self.frame + 3 + 270 * self.frame, 0, 263, 268, self.x, self.y, 200, 200)
     def update(self):
         if self.state == 0: # 달리기
             self.frame = (self.frame + 1) % 4
@@ -76,26 +76,39 @@ class Cookie:
                 self.y = 180
             self.jump_count += 1
         if self.state == 3: # 2단 점프
-            if self.jump_count < 5:
+            if self.jump_count < 10:
                 self.frame = 0
                 self.y += self.dy
                 self.dy -= 1
-            elif self.jump_count < 10:
+            elif self.jump_count < 12:
                 self.y += self.dy
                 self.dy -= 1
                 self.frame = 1
-            elif self.jump_count < 20:
+            elif self.jump_count < 15:
+                self.y += self.dy
+                self.dy -= 1
+                self.frame = 2
+            elif self.jump_count < 18:
                 self.y -= self.dy
                 self.dy += 1
-                self.frame = 2
-            else :
+                self.frame = 3
+            elif self.jump_count < 21:
                 self.y -= self.dy
+                self.dy += 1
                 self.frame = 4
+            else:
+                self.y -= self.dy
+                self.dy += 1
+                self.frame = 5
 
             if self.y <= 180:
                 self.state = 0  # 점프가 끝나면 달리기 상태로 돌아감
                 self.jump_count = 0  # 점프 카운트 초기화
                 self.y = 180
+            elif self.y <= 220:
+                self.y -= self.dy
+                self.dy += 1
+                self.frame = 6
 
             self.jump_count += 1
 
