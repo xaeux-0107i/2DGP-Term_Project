@@ -3,12 +3,18 @@ from pico2d import *
 class Background:
     def __init__(self):
         self.image = load_image('Background1.png')
+        self.speed = 1
+        self.dx = 0
         if self.image is None:
             print("배경 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(0, 0, 567, 320, 400, 300, 800, 600)
+        self.image.clip_draw(0, 0, 567, 320, 400 - self.dx, 300, 800, 600)
+        self.image.clip_draw(0, 0, 567, 320, 1200 - self.dx, 300, 800, 600)
     def update(self):
-        pass
+        if self.dx > 800:
+            self.dx = 0
+        else:
+            self.dx += self.speed
 
 class Flame:
     def __init__(self):
