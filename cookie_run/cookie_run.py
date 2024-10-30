@@ -1,9 +1,12 @@
 from pico2d import *
 
+global speed
+speed = 4
+
 class Background:
     def __init__(self):
         self.image = load_image('Background1.png')
-        self.speed = 4
+        self.speed = speed
         self.dx = 0
         if self.image is None:
             print("배경 이미지 로드 실패")
@@ -20,7 +23,7 @@ class Flame:
     def __init__(self):
         self.image = load_image('flame.png')
         self.dx = 0
-        self.speed = 4
+        self.speed = speed
         if self.image is None:
             print("배경 이미지 로드 실패")
     def draw(self):
@@ -33,13 +36,19 @@ class Flame:
             self.dx += self.speed
 
 class Fence:
-    def __init__(self):
+    def __init__(self, x):
         self.image = load_image('oven_fence.png')
+        self.x = x #50
+        self.dx = 2*speed
         if self.image is None:
             print("배경 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(0, 0, 124, 120, 50, 40, 100, 80)
+        self.image.clip_draw(0, 0, 124, 120, self.x, 40, 100, 80)
     def update(self):
+        self.x -= self.dx
+        # 만약 울타리가 화면 왼쪽 밖으로 이동하면 위치를 오른쪽 끝으로 재설정
+        if self.x < -50:  # -50은 울타리 너비에 맞게 조정
+            self.x += 900  # fences2의 오른쪽 끝으로 이동
         pass
 
 class Cookie:
@@ -132,8 +141,13 @@ class Cookie:
         if self.health == 0:
             # 쿠키 사망 상태
             pass
-
         pass
+
+def create_map():
+    global fences1, fences2
+    fences1 = [Fence(i*100 + 50) for i in range (0, 9)]
+    fences2 = [Fence(i * 100 + 950) for i in range(0, 9)]
+    pass
 
 def handle_events():
     global running
@@ -165,20 +179,20 @@ def reset_world():
     global back_ground
     global world
     global flame
-    global fence
     global cookie
 
     running = True
     world = []
+    create_map()
 
     back_ground = Background()
     world.append(back_ground)
     flame = Flame()
     world.append(flame)
-    fence = Fence()
-    world.append(fence)
     cookie = Cookie()
     world.append(cookie)
+    world += fences1
+    world += fences2
 
 
 
