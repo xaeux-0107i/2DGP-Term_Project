@@ -49,6 +49,7 @@ class Cookie:
         self.x = 170
         self.y = 180
         self.dy = 0
+        self.health = 90
         self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
         self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
         self.image_jump = load_image('brave_cookie_jump.png') # 가로 270 세로 268
@@ -123,10 +124,15 @@ class Cookie:
                 self.frame = 6
 
             self.jump_count += 1
-
         if self.state == 2: # 슬라이딩
             self.frame = (self.frame + 1) % 2
             self.y = 180
+        if self.health > 0:
+            self.health -= 1
+        if self.health == 0:
+            # 쿠키 사망 상태
+            pass
+
         pass
 
 def handle_events():
