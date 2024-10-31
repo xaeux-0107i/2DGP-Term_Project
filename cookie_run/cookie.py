@@ -8,10 +8,10 @@ class Cookie:
         self.y = 180
         self.dy = 0
         self.health = 90
-        self.image_running = load_image('brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
-        self.image_sliding = load_image('brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
-        self.image_jump = load_image('brave_cookie_jump.png') # 가로 270 세로 268
-        self.image_jump2 = load_image('brave_cookie_jump2.png')
+        self.image_running = load_image('cookie_image/brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
+        self.image_sliding = load_image('cookie_image/brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
+        self.image_jump = load_image('cookie_image/brave_cookie_jump.png') # 가로 270 세로 268
+        self.image_jump2 = load_image('cookie_image/brave_cookie_jump2.png')
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         if self.state == 0: # 달리기
