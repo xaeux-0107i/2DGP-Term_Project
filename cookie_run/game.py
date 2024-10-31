@@ -2,7 +2,7 @@ from pico2d import *
 
 from backgound import Background, Flame
 from cookie import Cookie
-from object import Fence, Jelly
+from object import Fence, Jelly, Olive
 
 global speed
 speed = 4
@@ -10,10 +10,12 @@ speed = 4
 def create_map():
     global fences1, fences2
     global jelly1, jelly2
+    global olive1
     fences1 = [Fence(i * 100 + 50) for i in range (0, 9)]
     fences2 = [Fence(i * 100 + 950) for i in range(0, 9)]
     jelly1 = [Jelly(100 * i + 50) for i in range(0, 18)]
     jelly2 = [Jelly(100 * i + 950) for i in range(0, 18)]
+    olive1 = [Olive(100 * i + 50) for i in range(0, 9)]
     pass
 
 def handle_events():
@@ -58,8 +60,9 @@ def reset_world():
     world.append(flame)
     world += fences1
     world += fences2
-    world += jelly1
-    world += jelly2
+    #world += jelly1
+    #world += jelly2
+    #world += olive1
 
     # 쿠키 그리기
     cookie = Cookie()
