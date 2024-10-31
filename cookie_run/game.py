@@ -2,7 +2,7 @@ from pico2d import *
 
 from backgound import Background, Flame
 from cookie import Cookie
-from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2
+from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision
 
 global speed
 speed = 4
@@ -12,14 +12,16 @@ def create_map():
     global jelly1, jelly2
     global olive1
     global forkS1, forkS2, fork
-    fences1 = [Fence(i * 100 + 50) for i in range (0, 9)]
-    fences2 = [Fence(i * 100 + 950) for i in range(0, 9)]
-    jelly1 = [Jelly(100 * i + 50) for i in range(0, 18)]
-    jelly2 = [Jelly(100 * i + 950) for i in range(0, 18)]
-    olive1 = [Olive(100 * i + 50) for i in range(0, 9)]
-    fork = [Fork(100 * i + 50) for i in range(0, 9)]
-    forkS1 = [ForkS1(100 * i + 50) for i in range(0, 9)]
-    forkS2 = [ForkS2(100 * i + 50) for i in range(0, 9)]
+    global poision1
+    fences1 = [Fence(i * 100 + 50) for i in range (0, 8)]
+    fences2 = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
+    jelly1 = [Jelly(100 * i + 50) for i in range(0, 16)]
+    jelly2 = [Jelly(100 * i + 850) for i in range(0, 16)]
+    olive1 = [Olive(100 * i + 50) for i in range(0, 8)]
+    fork = [Fork(100 * i + 50) for i in range(0, 8)]
+    forkS1 = [ForkS1(100 * i + 50) for i in range(0, 8)]
+    forkS2 = [ForkS2(100 * i + 50) for i in range(0, 8)]
+    poision1 = [Poision(100 * i + 50) for i in range(0, 8)]
     pass
 
 def handle_events():
@@ -66,10 +68,11 @@ def reset_world():
     world += fences2
     #world += jelly1
     #world += jelly2
-    #world += olive1
+    world += olive1
     #world += forkS1
     #world += forkS2
     #world += fork
+    #world += poision1
 
     # 쿠키 그리기
     cookie = Cookie()

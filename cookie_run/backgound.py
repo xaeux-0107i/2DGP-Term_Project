@@ -15,7 +15,7 @@ class Background:
         self.image.clip_draw(0, 0, 567, 320, 400 - self.dx, 300, 800, 600)
         self.image.clip_draw(0, 0, 567, 320, 1200 - self.dx, 300, 800, 600)
     def update(self):
-        if self.dx > 800:
+        if self.dx == 800:
             self.dx = 0
         else:
             self.dx += self.speed
