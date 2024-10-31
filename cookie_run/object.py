@@ -5,7 +5,7 @@ speed = 4
 
 class Fence:
     def __init__(self, x):
-        self.image = load_image('oven_fence.png')
+        self.image = load_image('object_image/obstacles/oven_fence.png')
         self.x = x #50
         self.dx = 2*speed
         if self.image is None:
@@ -21,7 +21,7 @@ class Fence:
 
 class Jelly:
     def __init__(self, x):
-        self.image = load_image('jelly.png')
+        self.image = load_image('object_image/jelly_and_items/jelly.png')
         self.x = x #50
         self.dx = 2*speed
         if self.image is None:
@@ -37,7 +37,7 @@ class Jelly:
 
 class Olive:
     def __init__(self, x):
-        self.image = load_image('olive.png')
+        self.image = load_image('object_image/obstacles/olive.png')
         self.x = x #50
         self.dx = 2*speed
         if self.image is None:

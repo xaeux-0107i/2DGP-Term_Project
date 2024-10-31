@@ -6,7 +6,7 @@ speed = 4
 
 class Background:
     def __init__(self):
-        self.image = load_image('Background1.png')
+        self.image = load_image('background_image/Background1.png')
         self.speed = speed
         self.dx = 0
         if self.image is None:
@@ -23,7 +23,7 @@ class Background:
 
 class Flame:
     def __init__(self):
-        self.image = load_image('flame.png')
+        self.image = load_image('background_image/flame.png')
         self.dx = 0
         self.speed = speed
         if self.image is None:
