@@ -1,6 +1,7 @@
 from pico2d import load_image
 
-from cookie_run.cookie_run import speed
+global speed
+speed = 4
 
 
 class Fence:

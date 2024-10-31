@@ -1,8 +1,8 @@
 from pico2d import *
 
-from cookie_run.backgound import Background, Flame
-from cookie_run.cookie import Cookie
-from cookie_run.object import Fence, Jelly
+from backgound import Background, Flame
+from cookie import Cookie
+from object import Fence, Jelly
 
 global speed
 speed = 4
