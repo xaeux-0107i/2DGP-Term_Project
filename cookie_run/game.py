@@ -2,9 +2,15 @@ from pico2d import *
 
 from backgound import Background, Flame
 from cookie import Cookie
-from mapSeed import create_map
+from mapSeed import create_map, max_num
+from random import randint
 
 global speed
+global count
+global change
+
+count = 0
+change = 0
 speed = 4
 
 def handle_events():
@@ -46,26 +52,55 @@ def reset_world():
     back_ground = Background()
     world.append(back_ground)
     flame = Flame()
+    world.append(flame)
 
     map1 = create_map(0)
-    map2 = create_map(2)
+    map2 = create_map(1)
 
-    world += map1
-    world += map2
     # 쿠키 그리기
-
     cookie = Cookie()
-    world.append(cookie)
 
 def update_world():
+    global count
+    global change
+    global map1
+    global map2
+
+    count += 2*speed
+    if count % 800 == 0:
+        if change % 2 == 0:
+            map1.clear()
+            map1 = create_map(randint(1, max_num))
+            change += 1
+            print('map1 초기화')
+        else:
+            map2.clear
+            map2 = create_map(randint(1, max_num))
+            change += 1
+            print('map2 초기화')
+
     for o in world:
         o.update()
+
+    for o in map1:
+        o.update()
+
+    for o in map2:
+        o.update()
+
+    cookie.update()
+
     pass
 
 def render_world():
     clear_canvas()
     for o in world:
         o.draw()
+    for o in map1:
+        o.draw()
+    for o in map2:
+        o.draw()
+    cookie.draw()
     update_canvas()
 
 open_canvas()

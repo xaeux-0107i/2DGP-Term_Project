@@ -1,5 +1,8 @@
 from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision
 
+global max_num
+max_num = 3
+
 def create_map(n):
     map = []
 
@@ -14,14 +17,20 @@ def create_map(n):
         # forkS2 = [ForkS2(100 * i + 50) for i in range(0, 8)]
         # poision1 = [Poision(100 * i + 50) for i in range(0, 8)]
         map += fences
-    elif n == 1: # 게임 시작 시 map2 초기화
+    elif n == 1:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
+        poision = [Poision(100 * i + 850) for i in range(0, 8)]
         map += fences
+        map += poision
     elif n == 2:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         olive = [Olive(100 * 2 * i + 800 + 50) for i in range(0, 4)]
         map += fences
         map += olive
-
+    elif n == 3:
+        fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
+        forkS2 = [ForkS2(i) for i in [1050, 1150, 1450, 1550]]
+        map += fences
+        map += forkS2
 
     return map
