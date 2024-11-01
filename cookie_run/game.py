@@ -2,27 +2,10 @@ from pico2d import *
 
 from backgound import Background, Flame
 from cookie import Cookie
-from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision
+from mapSeed import create_map
 
 global speed
 speed = 4
-
-def create_map():
-    global fences1, fences2
-    global jelly1, jelly2
-    global olive1
-    global forkS1, forkS2, fork
-    global poision1
-    fences1 = [Fence(i * 100 + 50) for i in range (0, 8)]
-    fences2 = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
-    jelly1 = [Jelly(100 * i + 50) for i in range(0, 16)]
-    jelly2 = [Jelly(100 * i + 850) for i in range(0, 16)]
-    olive1 = [Olive(100 * i + 50) for i in range(0, 8)]
-    fork = [Fork(100 * i + 50) for i in range(0, 8)]
-    forkS1 = [ForkS1(100 * i + 50) for i in range(0, 8)]
-    forkS2 = [ForkS2(100 * i + 50) for i in range(0, 8)]
-    poision1 = [Poision(100 * i + 50) for i in range(0, 8)]
-    pass
 
 def handle_events():
     global running
@@ -55,26 +38,22 @@ def reset_world():
     global world
     global flame
     global cookie
+    global map1, map2
 
     running = True
     world = []
-    create_map()
 
     back_ground = Background()
     world.append(back_ground)
     flame = Flame()
-    world.append(flame)
-    world += fences1
-    world += fences2
-    #world += jelly1
-    #world += jelly2
-    world += olive1
-    #world += forkS1
-    #world += forkS2
-    #world += fork
-    #world += poision1
 
+    map1 = create_map(0)
+    map2 = create_map(2)
+
+    world += map1
+    world += map2
     # 쿠키 그리기
+
     cookie = Cookie()
     world.append(cookie)
 
