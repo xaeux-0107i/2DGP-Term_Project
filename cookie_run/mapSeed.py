@@ -24,7 +24,7 @@ def create_map(n):
         map += poision
     elif n == 2:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
-        olive = [Olive(100 * 2 * i + 800 + 50) for i in range(0, 4)]
+        olive = [Olive(100 * 2 * i + 800 + 150) for i in range(0, 4)]
         map += fences
         map += olive
     elif n == 3:
@@ -32,5 +32,12 @@ def create_map(n):
         forkS2 = [ForkS2(i) for i in [1050, 1150, 1450, 1550]]
         map += fences
         map += forkS2
+    elif n == 4:
+        fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
+        fork = [Fork(400 * i + 800 + 150) for i in range(0, 2)]
+        forkS1 = [ForkS1(400 * i + 800 + 350) for i in range(0, 2)]
+        map += fences
+        map += fork
+        map += forkS1
 
     return map
