@@ -13,5 +13,5 @@ class HealthBar:
         self.image_sparkle.clip_draw(0, 0, 24, 48, 436 - int(self.dx), 550, 24, 42)
         self.image_icon.clip_draw(0, 0, 54, 54, 50, 550)
     def update(self):
-        self.dx += 1
+        self.dx += 0.1
         pass
