@@ -82,16 +82,17 @@ class ForkS2:
         pass
 
 class Poision:
-    def __init__(self, x):
+    def __init__(self, x, y):
         self.image = load_image('object_image/obstacles/poision.png')
-        self.x = x #50
+        self.x = x # 50
+        self.y = y # 400
         self.frame = 0
         self.count = 0
         self.dx = 2*speed
         if self.image is None:
             print("장애물 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(self.frame*180, 0, 180, 214, self.x, 400, 180, 200)
+        self.image.clip_draw(self.frame*180, 0, 180, 214, self.x, self.y, 180, 200)
     def update(self):
         self.x -= self.dx
         self.count += 1

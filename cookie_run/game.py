@@ -55,7 +55,7 @@ def reset_world():
     world.append(flame)
 
     map1 = create_map(0)
-    map2 = create_map(4)
+    map2 = create_map(2)
 
     # 쿠키 그리기
     cookie = Cookie()
