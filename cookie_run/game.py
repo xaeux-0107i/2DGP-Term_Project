@@ -4,7 +4,7 @@ from backgound import Background, Flame
 from cookie import Cookie
 from mapSeed import create_map, max_num
 from random import randint
-from UI import HealthBar
+from UI import HealthBar, ScoreUI
 
 global speed
 global count
@@ -47,6 +47,7 @@ def reset_world():
     global cookie
     global map1, map2
     global healthBar
+    global scoreUI
 
     running = True
     world = []
@@ -64,6 +65,7 @@ def reset_world():
 
     # 체력바 생성
     healthBar = HealthBar()
+    scoreUI = ScoreUI()
 
 def update_world():
     global count
@@ -109,6 +111,7 @@ def render_world():
         o.draw()
     cookie.draw()
     healthBar.draw()
+    scoreUI.draw()
     update_canvas()
 
 open_canvas()
