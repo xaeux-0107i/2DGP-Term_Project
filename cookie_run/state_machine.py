@@ -51,5 +51,3 @@ class StateMachine:
                 print(f'Enter into {self.cur_state}')
                 self.cur_state.enter(self.o, e)
                 return
-
-        # print(f'        Warning: Event [{e}] at State [{self.cur_state}] not handled')
