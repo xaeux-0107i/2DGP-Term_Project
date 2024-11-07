@@ -10,7 +10,7 @@ class Cookie:
         self.dy = 0
         self.health = 90
         self.state_machine = StateMachine(self)
-        self.state_machine.start(Sliding)
+        self.state_machine.start(Jump1)
         self.state_machine.set_transitions(
             {
                 Run: {down_down: Sliding},
@@ -128,8 +128,6 @@ class Run:
     def draw(cookie):
         cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y, 200, 200)
 
-
-
 class Sliding:
     @staticmethod
     def enter(cookie, e):
@@ -148,3 +146,43 @@ class Sliding:
     @staticmethod
     def draw(cookie):
         cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+
+class Jump1:
+    @staticmethod
+    def enter(cookie, e):
+        cookie.jump_count = 0
+        cookie.frame = 0
+        cookie.dy = 15
+        pass
+
+    @staticmethod
+    def exit(cookie, e):
+        pass
+
+    @staticmethod
+    def do(cookie):
+        cookie.frame = (cookie.frame + 1) % 2
+        if cookie.jump_count < 5:
+            cookie.frame = 0
+            cookie.y += cookie.dy
+            cookie.dy -= 1
+        elif cookie.jump_count < 10:
+             cookie.y += cookie.dy
+             cookie.dy -= 1
+             cookie.frame = 1
+        elif cookie.jump_count < 20:
+            cookie.y -= cookie.dy
+            cookie.dy += 1
+            cookie.frame = 1
+        elif cookie.jump_count < 22:
+                cookie.y -= cookie.dy
+                cookie.frame = 3
+        else:
+            cookie.jump_count = 0  # 점프 카운트 초기화
+            cookie.y = 180
+        cookie.jump_count += 1
+        pass
+
+    @staticmethod
+    def draw(cookie):
+        cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
