@@ -1,5 +1,5 @@
 from pico2d import load_image
-
+from state_machine import StateMachine
 class Cookie:
     def __init__(self):
         self.frame = 0
@@ -8,6 +8,7 @@ class Cookie:
         self.y = 180
         self.dy = 0
         self.health = 90
+        self.state_machine = StateMachine(self)
         self.image_running = load_image('cookie_image/brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
         self.image_sliding = load_image('cookie_image/brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
         self.image_jump = load_image('cookie_image/brave_cookie_jump.png') # 가로 270 세로 268
@@ -91,3 +92,21 @@ class Cookie:
             # 쿠키 사망 상태
             pass
         pass
+
+class Run:
+    @staticmethod
+    def enter(cookie, e):
+        pass
+
+    @staticmethod
+    def exit(cookie, e):
+        pass
+
+    @staticmethod
+    def do(cookie):
+        cookie.frame = (cookie.frame + 1) % 8
+        pass
+
+    @staticmethod
+    def draw(cookie):
+        cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y, 200, 200)
