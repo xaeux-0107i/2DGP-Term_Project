@@ -10,11 +10,13 @@ class Cookie:
         self.dy = 0
         self.health = 90
         self.state_machine = StateMachine(self)
-        self.state_machine.start(Jump1)
+        self.state_machine.start(Jump2)
         self.state_machine.set_transitions(
             {
                 Run: {down_down: Sliding},
-                Sliding: {down_up: Run}
+                Sliding: {down_up: Run},
+                Jump1: {down_down: Sliding, space_down: Jump2},
+                Jump2: {down_down: Sliding}
             }
         )
         self.image_running = load_image('cookie_image/brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
@@ -23,16 +25,7 @@ class Cookie:
         self.image_jump2 = load_image('cookie_image/brave_cookie_jump2.png')
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
-        # if self.state == 0: # 달리기
-        #     self.image_running.clip_draw(self.frame + 2 + 270*self.frame, 0, 260, 268, self.x, self.y, 200, 200)
-        # if self.state == 1: # 점프
-        #     self.image_jump.clip_draw(self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
-        # if self.state == 2: # 슬라이딩
-        #     self.image_sliding.clip_draw(self.frame + 270*self.frame, 0, 265, 268, self.x, self.y, 200, 200)
-        # if self.state == 3: # 2단 점프
-        #     self.image_jump2.clip_draw(self.frame + 3 + 270 * self.frame, 0, 263, 268, self.x, self.y, 200, 200)
         self.state_machine.draw()
-        pass
 
     def update(self):
         # if self.state == 0: # 달리기
@@ -186,3 +179,56 @@ class Jump1:
     @staticmethod
     def draw(cookie):
         cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+
+
+class Jump2:
+    @staticmethod
+    def enter(cookie, e):
+        cookie.jump_count = 0
+        cookie.frame = 0
+        cookie.dy = 15
+        pass
+
+    @staticmethod
+    def exit(cookie, e):
+        pass
+
+    @staticmethod
+    def do(cookie):
+        if cookie.jump_count < 10:
+            cookie.frame = 0
+            cookie.y += cookie.dy
+            cookie.dy -= 1
+        elif cookie.jump_count < 12:
+            cookie.y += cookie.dy
+            cookie.dy -= 1
+            cookie.frame = 1
+        elif cookie.jump_count < 15:
+            cookie.y += cookie.dy
+            cookie.dy -= 1
+            cookie.frame = 2
+        elif cookie.jump_count < 18:
+            cookie.y -= cookie.dy
+            cookie.dy += 1
+            cookie.frame = 3
+        elif cookie.jump_count < 21:
+            cookie.y -= cookie.dy
+            cookie.dy += 1
+            cookie.frame = 4
+        else:
+            cookie.y -= cookie.dy
+            cookie.dy += 1
+            cookie.frame = 5
+
+        if cookie.y <= 180:
+            # 점프가 끝나면 달리기 상태로 돌아감
+            cookie.jump_count = 0  # 점프 카운트 초기화
+            cookie.y = 180
+
+        cookie.jump_count += 1
+        pass
+
+    @staticmethod
+    def draw(cookie):
+        cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y, 200, 200)
+
