@@ -10,7 +10,7 @@ class Cookie:
         self.dy = 0
         self.health = 90
         self.state_machine = StateMachine(self)
-        self.state_machine.start(Jump2)
+        self.state_machine.start(Run)
         self.state_machine.set_transitions(
             {
                 Run: {down_down: Sliding},
@@ -28,73 +28,6 @@ class Cookie:
         self.state_machine.draw()
 
     def update(self):
-        # if self.state == 0: # 달리기
-        #     self.frame = (self.frame + 1) % 4
-        # if self.state == 1: # 1단 점프
-        #     if self.jump_count < 5:
-        #         self.frame = 0
-        #         self.y += self.dy
-        #         self.dy -= 1
-        #     elif self.jump_count < 10:
-        #         self.y += self.dy
-        #         self.dy -= 1
-        #         self.frame = 1
-        #     elif self.jump_count < 20:
-        #         self.y -= self.dy
-        #         self.dy += 1
-        #         self.frame = 1
-        #     elif self.jump_count < 22:
-        #         self.y -= self.dy
-        #         self.frame = 3
-        #     else:
-        #         self.state = 0  # 점프가 끝나면 달리기 상태로 돌아감
-        #         self.jump_count = 0  # 점프 카운트 초기화
-        #         self.y = 180
-        #     self.jump_count += 1
-        # if self.state == 3: # 2단 점프
-        #     if self.jump_count < 10:
-        #         self.frame = 0
-        #         self.y += self.dy
-        #         self.dy -= 1
-        #     elif self.jump_count < 12:
-        #         self.y += self.dy
-        #         self.dy -= 1
-        #         self.frame = 1
-        #     elif self.jump_count < 15:
-        #         self.y += self.dy
-        #         self.dy -= 1
-        #         self.frame = 2
-        #     elif self.jump_count < 18:
-        #         self.y -= self.dy
-        #         self.dy += 1
-        #         self.frame = 3
-        #     elif self.jump_count < 21:
-        #         self.y -= self.dy
-        #         self.dy += 1
-        #         self.frame = 4
-        #     else:
-        #         self.y -= self.dy
-        #         self.dy += 1
-        #         self.frame = 5
-        #
-        #     if self.y <= 180:
-        #         self.state = 0  # 점프가 끝나면 달리기 상태로 돌아감
-        #         self.jump_count = 0  # 점프 카운트 초기화
-        #         self.y = 180
-        #     elif self.y <= 220:
-        #         self.y -= self.dy
-        #         self.dy += 1
-        #         self.frame = 6
-        #
-        #     self.jump_count += 1
-        # if self.state == 2: # 슬라이딩
-        #     self.frame = (self.frame + 1) % 2
-        #     self.y = 180
-        # if self.health > 0:
-        #     self.health -= 1
-        # if self.health == 0:
-        #     # 쿠키 사망 상태
-        #     pass
         self.state_machine.update()
         pass
 
