@@ -73,7 +73,7 @@ def update():
             print('map2 초기화')
 
     game_world.update()
-    delay(0.05)
+    delay(0.03)
 
 def draw():
     clear_canvas()

@@ -13,10 +13,10 @@ class Cookie:
         self.state_machine.start(Run)
         self.state_machine.set_transitions(
             {
-                Run: {down_down: Sliding},
+                Run: {down_down: Sliding, space_down: Jump1},
                 Sliding: {down_up: Run},
-                Jump1: {down_down: Sliding, space_down: Jump2},
-                Jump2: {down_down: Sliding}
+                Jump1: {down_down: Sliding, space_down: Jump2, change_state: Run},
+                Jump2: {down_down: Sliding, change_state: Run}
             }
         )
         self.image_running = load_image('cookie_image/brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
@@ -100,12 +100,10 @@ class Jump1:
             cookie.y -= cookie.dy
             cookie.dy += 1
             cookie.frame = 1
-        elif cookie.jump_count < 22:
-                cookie.y -= cookie.dy
-                cookie.frame = 3
         else:
             cookie.jump_count = 0  # 점프 카운트 초기화
             cookie.y = 180
+            cookie.state_machine.add_event(('CHANGE', 0))
         cookie.jump_count += 1
         pass
 
@@ -157,6 +155,7 @@ class Jump2:
             # 점프가 끝나면 달리기 상태로 돌아감
             cookie.jump_count = 0  # 점프 카운트 초기화
             cookie.y = 180
+            cookie.state_machine.add_event(('CHANGE', 0))
 
         cookie.jump_count += 1
         pass

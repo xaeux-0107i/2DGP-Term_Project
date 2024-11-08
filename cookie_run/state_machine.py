@@ -12,8 +12,8 @@ def down_up(e):
 def space_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
-def time_out(e):
-    return e[0] == 'TIME_OUT'
+def change_state(e):
+    return e[0] == 'CHANGE'
 
 class StateMachine:
     def __init__(self, o):
