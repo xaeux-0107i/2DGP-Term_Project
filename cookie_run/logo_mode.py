@@ -1,12 +1,12 @@
 import game_framework
-import play_mode as next_mode
+import title_mode as next_mode
 from pico2d import load_image, delay, clear_canvas, update_canvas, get_events, get_time
 
 def init():
     global image
     global logo_start_time
 
-    image = load_image('tuk_credit.png')
+    image = load_image('background_image/tuk_credit.png')
     logo_start_time = get_time()
 
 def finish():
