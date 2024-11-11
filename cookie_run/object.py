@@ -17,14 +17,15 @@ class Fence:
         pass
 
 class Jelly:
-    def __init__(self, x):
+    def __init__(self, x, y):
         self.image = load_image('object_image/jelly_and_items/jelly.png')
         self.x = x #50
+        self.y = y # 130
         self.dx = 2*speed
         if self.image is None:
             print("젤리 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(0, 0, 55, 52, self.x, 130, 50, 50)
+        self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 50, 50)
     def update(self):
         self.x -= self.dx
         pass

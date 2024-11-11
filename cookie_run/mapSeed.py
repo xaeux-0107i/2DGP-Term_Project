@@ -12,7 +12,8 @@ def create_map(n):
     elif n == 1:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         poision = [Poision(x + 850, y) for x, y in [(200, 200), (400, 300), (500,300), (700, 120)]]
-        jelly = [Jelly(100 * i + 800 + 50) for i in range(0, 8)]
+        jelly = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 120), (1,120), (2,120), (3, 135),
+                                                           (4, 150), (5, 150), (6, 170), (7, 200)]]
         map += fences
         map += poision
         map += jelly
