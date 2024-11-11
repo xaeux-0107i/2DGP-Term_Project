@@ -25,7 +25,7 @@ class Jelly:
         if self.image is None:
             print("젤리 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 50, 50)
+        self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 40, 40)
     def update(self):
         self.x -= self.dx
         pass
