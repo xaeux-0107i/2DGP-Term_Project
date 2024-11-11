@@ -22,16 +22,19 @@ def create_map(n):
         olive = [Olive(i) for i in [850, 1050, 1450]]
         forkS2 = [ForkS2(i) for i in [1250]]
         jelly = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 200), (1, 120), (2, 200), (3, 120),
-                                                           (4, 120), (5, 120), (6, 200), (7, 120)]]
+                                                           (4, 110), (5, 120), (6, 200), (7, 120)]]
         map += fences
         map += olive
         map += forkS2
         map += jelly
     elif n == 3:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
-        forkS2 = [ForkS2(i) for i in [1050, 1150, 1450, 1550]]
+        forkS2 = [ForkS2(i) for i in [950, 1050, 1350, 1450]]
+        jelly = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 150), (1, 110), (2, 110), (3, 150),
+                                                           (4, 150), (5, 110), (6, 110), (7, 150)]]
         map += fences
         map += forkS2
+        map += jelly
     elif n == 4:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         fork = [Fork(400 * i + 800 + 150) for i in range(0, 1)]
