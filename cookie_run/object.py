@@ -29,7 +29,6 @@ class Jelly:
         draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
@@ -37,14 +36,17 @@ class Olive:
     def __init__(self, x):
         self.image = load_image('object_image/obstacles/olive.png')
         self.x = x #50
+        self.y = 115
         self.dx = 2*speed
         if self.image is None:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 68, 99, self.x, 115, 50, 75)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-        pass
+    def get_bb(self):
+        return self.x - 20, self.y - 35, self.x + 20, self.y + 20
 
 class Fork:
     def __init__(self, x):

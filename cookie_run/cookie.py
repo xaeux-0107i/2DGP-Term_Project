@@ -37,9 +37,9 @@ class Cookie:
         pass
     def get_bb(self):
         if self.state_machine.cur_state == Sliding:
-            return self.x - 40, self.y - 100, self.x + 60, self.y - 60
+            return self.x - 30, self.y - 100, self.x + 50, self.y - 60
         else:
-            return self.x - 20, self.y - 100, self.x + 40, self.y
+            return self.x - 15, self.y - 80, self.x + 35, self.y - 20
 
 class Run:
     @staticmethod
