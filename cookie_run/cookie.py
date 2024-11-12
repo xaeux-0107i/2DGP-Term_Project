@@ -8,7 +8,7 @@ class Cookie:
         self.x = 170
         self.y = 180
         self.dy = 0
-        self.health = 90
+        self.health = 400
         self.score = 0
         self.state_machine = StateMachine(self)
         self.state_machine.start(Run)
@@ -41,6 +41,14 @@ class Cookie:
             return self.x - 30, self.y - 100, self.x + 50, self.y - 60
         else:
             return self.x - 15, self.y - 80, self.x + 35, self.y - 20
+
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:jelly':
+            self.score += 1
+        if group == 'cookie:obstacle':
+            self.health -= 10;
+
 
 class Run:
     @staticmethod

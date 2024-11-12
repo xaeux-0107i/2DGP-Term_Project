@@ -34,11 +34,9 @@ def init():
     flame = Flame()
     game_world.add_object(flame, 0)
 
-    map1 = create_map(0)
-    map2 = create_map(randint(1, max_num))
+    create_map(0, 1)
+    create_map(randint(1, max_num), 2)
 
-    game_world.world[1] += map1
-    game_world.world[2] += map2
     # 쿠키 생성
     cookie = Cookie()
     game_world.add_object(cookie, 3)
@@ -50,31 +48,35 @@ def init():
     game_world.add_object(healthBar, 4)
     game_world.add_object(scoreUI, 4)
 
+    game_world.add_collision_pairs('cookie:obstacle', cookie, None)
+    game_world.add_collision_pairs('cookie:jelly', cookie, None)
+
 def finish():
     game_world.clear()
     pass
 
 def update():
-    global map1, map2, count, speed, change
+    global count, speed, change
 
     count += 2 * speed
     if count % 800 == 0:
         if change % 2 == 0:
-            game_world.world[1].clear()
-            map1 = create_map(randint(1, max_num))
-            #map1 = create_map(5)
+            #game_world.objects[1].clear()
+            for o in game_world.objects[1]:
+                game_world.remove_object(o)
+            create_map(randint(1, max_num), 1)
             change += 1
-            game_world.world[1] += map1
             print('map1 초기화')
         else:
-            game_world.world[2].clear()
-            map2 = create_map(randint(1, max_num))
-            #map2 = create_map(5)
+            #game_world.objects[2].clear()
+            for o in game_world.objects[2]:
+                game_world.remove_object(o)
+            create_map(randint(1, max_num), 2)
             change += 1
-            game_world.world[2] += map2
             print('map2 초기화')
 
     game_world.update()
+    game_world.handle_collisions()
     delay(0.03)
 
 def draw():

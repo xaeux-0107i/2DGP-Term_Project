@@ -1,4 +1,5 @@
 from pico2d import load_image, draw_rectangle
+import game_world
 
 global speed
 speed = 4
@@ -31,6 +32,10 @@ class Jelly:
         self.x -= self.dx
     def get_bb(self):
         return self.x - 20, self.y - 20, self.x + 20, self.y + 20
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:jelly':
+            game_world.remove_object(self)
 
 class Olive:
     def __init__(self, x):
@@ -47,6 +52,10 @@ class Olive:
         self.x -= self.dx
     def get_bb(self):
         return self.x - 20, self.y - 35, self.x + 20, self.y + 20
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:obstacle':
+            pass
 
 class Fork:
     def __init__(self, x):
@@ -62,6 +71,10 @@ class Fork:
         self.x -= self.dx
     def get_bb(self):
         return self.x - 20, 125 - 45, self.x + 20, 125 + 40
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:obstacle':
+            pass
 
 
 class ForkS1:
@@ -78,6 +91,10 @@ class ForkS1:
         self.x -= self.dx
     def get_bb(self):
         return self.x - 30, 160 - 80, self.x + 10, 160 + 75
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:obstacle':
+            pass
 
 class ForkS2:
     def __init__(self, x):
@@ -93,6 +110,10 @@ class ForkS2:
         self.x -= self.dx
     def get_bb(self):
         return self.x - 40, 400 - 230, self.x + 40, 400 + 250
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:obstacle':
+            pass
 
 class Poision:
     def __init__(self, x, y):
@@ -114,3 +135,7 @@ class Poision:
             self.frame = (self.frame + 1) % 2
     def get_bb(self):
         return self.x - 55, self.y - 35, self.x - 5, self.y + 15
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'cookie:obstacle':
+            pass
