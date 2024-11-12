@@ -50,9 +50,11 @@ def create_map(n):
     elif n == 5:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         map += fences
-        olive = [Olive(400 * i + 800 + 250) for i in range(0, 2)]
-        forkS1 = [ForkS1(400 * i + 800 + 350) for i in range(0,2)]
+        olive = [Olive(400 * i + 800 + 150) for i in range(0, 2)]
+        forkS1 = [ForkS1(400 * i + 800 + 250) for i in range(0,2)]
+        jelly = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 120), (1, 200), (2, 300), (3, 200),
+                                                           (4, 120), (5, 200), (6, 300), (7, 200)]]
         map += forkS1
         map += olive
-
+        map += jelly
     return map

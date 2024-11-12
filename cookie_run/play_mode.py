@@ -61,15 +61,15 @@ def update():
     if count % 800 == 0:
         if change % 2 == 0:
             game_world.world[1].clear()
-            #map1 = create_map(randint(1, max_num))
-            map1 = create_map(4)
+            map1 = create_map(randint(1, max_num))
+            #map1 = create_map(5)
             change += 1
             game_world.world[1] += map1
             print('map1 초기화')
         else:
             game_world.world[2].clear()
-            #map2 = create_map(randint(1, max_num))
-            map2 = create_map(4)
+            map2 = create_map(randint(1, max_num))
+            #map2 = create_map(5)
             change += 1
             game_world.world[2] += map2
             print('map2 초기화')
