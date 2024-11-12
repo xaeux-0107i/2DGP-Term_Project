@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 from state_machine import *
 
 class Cookie:
@@ -26,6 +26,7 @@ class Cookie:
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.state_machine.update()
@@ -34,7 +35,11 @@ class Cookie:
     def handle_event(self, event):
         self.state_machine.add_event(('INPUT', event))
         pass
-
+    def get_bb(self):
+        if self.state_machine.cur_state == Sliding:
+            return self.x - 40, self.y - 100, self.x + 60, self.y - 60
+        else:
+            return self.x - 20, self.y - 100, self.x + 40, self.y
 
 class Run:
     @staticmethod

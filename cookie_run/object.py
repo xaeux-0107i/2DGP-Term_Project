@@ -28,7 +28,6 @@ class Jelly:
         self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 40, 40)
     def update(self):
         self.x -= self.dx
-        pass
 
 class Olive:
     def __init__(self, x):
