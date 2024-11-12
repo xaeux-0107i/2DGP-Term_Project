@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 
 global speed
 speed = 4
@@ -26,8 +26,12 @@ class Jelly:
             print("젤리 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 40, 40)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
+
+    def get_bb(self):
+        return self.x - 20, self.y - 20, self.x + 20, self.y + 20
 
 class Olive:
     def __init__(self, x):
