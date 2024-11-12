@@ -9,6 +9,7 @@ class Cookie:
         self.y = 180
         self.dy = 0
         self.health = 90
+        self.score = 0
         self.state_machine = StateMachine(self)
         self.state_machine.start(Run)
         self.state_machine.set_transitions(

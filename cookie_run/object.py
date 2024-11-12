@@ -57,9 +57,12 @@ class Fork:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 80, 113, self.x, 125, 60, 90)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-        pass
+    def get_bb(self):
+        return self.x - 20, 125 - 45, self.x + 20, 125 + 40
+
 
 class ForkS1:
     def __init__(self, x):
