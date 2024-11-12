@@ -70,9 +70,11 @@ class ForkS1:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 106, 193, self.x, 160, 80, 160)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-        pass
+    def get_bb(self):
+        return self.x - 30, 160 - 80, self.x + 10, 160 + 75
 
 class ForkS2:
     def __init__(self, x):
