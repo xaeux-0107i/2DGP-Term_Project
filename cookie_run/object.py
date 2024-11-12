@@ -99,9 +99,11 @@ class Poision:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(self.frame*180, 0, 180, 214, self.x, self.y, 180, 200)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
         self.count += 1
         if self.count % 2 == 0:
             self.frame = (self.frame + 1) % 2
-        pass
+    def get_bb(self):
+        return self.x - 55, self.y - 35, self.x - 5, self.y + 15
