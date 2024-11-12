@@ -1,4 +1,5 @@
 from pico2d import load_image, load_font
+import play_mode
 
 class HealthBar:
     def __init__(self):
@@ -9,11 +10,10 @@ class HealthBar:
         self.dx = 0
     def draw(self):
         self.image_empty.clip_draw(0, 0, 282, 42, 240, 550, 400, 40)
-        self.image_bar.clip_draw(0, 0, 400 - int(self.dx), 46, 240 - int(self.dx/2), 550, 400 - int(self.dx), 40)
-        self.image_sparkle.clip_draw(0, 0, 24, 48, 436 - int(self.dx), 550, 24, 42)
+        self.image_bar.clip_draw(0, 0, int(play_mode.cookie.health), 46, 240 - int((400 - play_mode.cookie.health)/2), 550, int(play_mode.cookie.health), 40)
+        self.image_sparkle.clip_draw(0, 0, 24, 48, int(play_mode.cookie.health) + 36, 550, 24, 42)
         self.image_icon.clip_draw(0, 0, 54, 54, 50, 550)
     def update(self):
-        self.dx += 0.1
         pass
 
 class ScoreUI:
@@ -25,6 +25,6 @@ class ScoreUI:
         self.image_empty.clip_draw(0, 0, 282, 42, 680, 550, 150, 50)
         self.image.clip_draw(0, 0, 55, 52, 630, 550, 50, 50)
         font = load_font('Arial.ttf', 30)
-        font.draw(660, 550, 'score', (255,255,255))
+        font.draw(660, 550, str(play_mode.cookie.score), (255,255,255))
     def update(self):
         pass

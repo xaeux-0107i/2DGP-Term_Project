@@ -31,6 +31,7 @@ class Cookie:
 
     def update(self):
         self.state_machine.update()
+        self.health -= 0.1
         pass
 
     def handle_event(self, event):
@@ -47,7 +48,7 @@ class Cookie:
         if group == 'cookie:jelly':
             self.score += 1
         if group == 'cookie:obstacle':
-            self.health -= 10;
+            self.health -= 5;
 
 
 class Run:
