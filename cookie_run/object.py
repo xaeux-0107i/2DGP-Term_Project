@@ -83,9 +83,11 @@ class ForkS2:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 134, 482, self.x, 400, 100, 500)
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-        pass
+    def get_bb(self):
+        return self.x - 40, 400 - 230, self.x + 40, 400 + 250
 
 class Poision:
     def __init__(self, x, y):
