@@ -10,16 +10,24 @@ from UI import HealthBar, ScoreUI
 global speed
 global count
 global change
+global collision_box
 
 count = 0
 change = 0
 speed = 4
+collision_box = False
 
 def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_c:
+            global collision_box
+            if collision_box:
+                collision_box = False
+            else:
+                collision_box = True
         else:
             cookie.handle_event(event)
 

@@ -1,5 +1,6 @@
 from pico2d import load_image, draw_rectangle
 from state_machine import *
+import play_mode
 
 class Cookie:
     def __init__(self):
@@ -27,7 +28,8 @@ class Cookie:
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
 
     def update(self):
         self.state_machine.update()

@@ -1,6 +1,6 @@
 from pico2d import load_image, draw_rectangle
 import game_world
-
+import play_mode
 global speed
 speed = 4
 
@@ -27,7 +27,8 @@ class Jelly:
             print("젤리 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 55, 52, self.x, self.y, 40, 40)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
     def get_bb(self):
@@ -47,7 +48,8 @@ class Olive:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 68, 99, self.x, 115, 50, 75)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
     def get_bb(self):
@@ -66,7 +68,8 @@ class Fork:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 80, 113, self.x, 125, 60, 90)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
     def get_bb(self):
@@ -86,7 +89,8 @@ class ForkS1:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 106, 193, self.x, 160, 80, 160)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
     def get_bb(self):
@@ -105,7 +109,8 @@ class ForkS2:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(0, 0, 134, 482, self.x, 400, 100, 500)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
     def get_bb(self):
@@ -127,7 +132,8 @@ class Poision:
             print("장애물 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(self.frame*180, 0, 180, 214, self.x, self.y, 180, 200)
-        draw_rectangle(*self.get_bb())
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
         self.count += 1
