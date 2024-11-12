@@ -40,10 +40,13 @@ def create_map(n):
         fork = [Fork(400 * i + 800 + 150) for i in range(0, 1)]
         forkS1 = [ForkS1(400* i + 800 + 350) for i in range(0, 1)]
         forkS2 = [ForkS2(1400)]
+        jelly = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 120), (1, 200), (2, 250), (3, 300),
+                                                           (4, 200), (5, 110), (6, 110), (7, 110)]]
         map += fences
         map += fork
         map += forkS1
         map += forkS2
+        map += jelly
     elif n == 5:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         map += fences
