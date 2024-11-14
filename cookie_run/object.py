@@ -2,6 +2,7 @@ from pico2d import load_image, draw_rectangle
 import game_world
 import play_mode
 global speed
+from random import randint
 speed = 4
 
 class Fence:
@@ -125,7 +126,7 @@ class Poision:
         self.image = load_image('object_image/obstacles/poision.png')
         self.x = x # 50
         self.y = y # 400
-        self.frame = 0
+        self.frame = randint(0, 1)
         self.count = 0
         self.dx = 2*speed
         if self.image is None:
@@ -137,8 +138,8 @@ class Poision:
     def update(self):
         self.x -= self.dx
         self.count += 1
-        if self.count % 2 == 0:
-            self.frame = (self.frame + 1) % 2
+        if self.count % 3 == 0:
+            self.frame = int(self.frame + 1) % 2
     def get_bb(self):
         return self.x - 55, self.y - 35, self.x - 5, self.y + 15
     def handle_collision(self, group, other):
