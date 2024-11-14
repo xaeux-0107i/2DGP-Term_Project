@@ -6,6 +6,7 @@ from backgound import Background, Flame
 from cookie import Cookie
 from mapSeed import create_map, max_num
 from UI import HealthBar, ScoreUI
+from item import Energy
 
 global speed
 global count
