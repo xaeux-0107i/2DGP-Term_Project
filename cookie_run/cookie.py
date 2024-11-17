@@ -51,6 +51,8 @@ class Cookie:
             self.score += 1
         if group == 'cookie:obstacle':
             self.health -= 5;
+        if group == 'cookie:energy':
+            self.health += 10
 
 
 class Run:
