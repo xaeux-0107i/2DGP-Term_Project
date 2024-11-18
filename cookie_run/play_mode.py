@@ -48,7 +48,7 @@ def init():
 
     # 쿠키 생성
     cookie = Cookie()
-    game_world.add_object(cookie, 3)
+    game_world.add_object(cookie, 4)
 
     # 체력바 생성
     healthBar = HealthBar()
