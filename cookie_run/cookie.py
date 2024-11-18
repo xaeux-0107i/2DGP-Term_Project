@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, get_time
 from state_machine import *
 import play_mode
 
@@ -12,6 +12,7 @@ class Cookie:
         self.health = 400
         self.score = 0
         self.mode = 0
+        self.start_time = 0
         self.state_machine = StateMachine(self)
         self.state_machine.start(Run)
         self.state_machine.set_transitions(
@@ -36,6 +37,11 @@ class Cookie:
     def update(self):
         self.state_machine.update()
         self.health -= 0.1
+        if self.start_time != 0:
+            current_time = get_time()
+            if current_time - self.start_time > 3:
+                self.mode = 0
+                self.start_time = 0
         pass
 
     def handle_event(self, event):
@@ -60,6 +66,7 @@ class Cookie:
             pass
         if group == 'cookie:sprint':
             self.mode = 1
+            self.start_time = get_time()
 
 
 class Run:
