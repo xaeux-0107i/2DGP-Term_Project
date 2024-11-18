@@ -59,7 +59,7 @@ class Olive:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            if play_mode.cookie.mode == 1:
+            if play_mode.cookie.mode != 0:
                 game_world.remove_object(self)
 
 class Fork:
@@ -80,7 +80,7 @@ class Fork:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            if play_mode.cookie.mode == 1:
+            if play_mode.cookie.mode != 0:
                 game_world.remove_object(self)
 
 
@@ -103,7 +103,7 @@ class ForkS1:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            if play_mode.cookie.mode == 1:
+            if play_mode.cookie.mode != 0:
                 game_world.remove_object(self)
 
 class ForkS2:
@@ -124,7 +124,7 @@ class ForkS2:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            if play_mode.cookie.mode == 1:
+            if play_mode.cookie.mode != 0:
                 game_world.remove_object(self)
 
 class Poision:
@@ -151,5 +151,5 @@ class Poision:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            if play_mode.cookie.mode == 1:
+            if play_mode.cookie.mode != 0:
                 game_world.remove_object(self)

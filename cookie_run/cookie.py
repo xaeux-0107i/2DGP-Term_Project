@@ -48,10 +48,16 @@ class Cookie:
         self.state_machine.add_event(('INPUT', event))
         pass
     def get_bb(self):
-        if self.state_machine.cur_state == Sliding:
-            return self.x - 30, self.y - 100, self.x + 50, self.y - 60
+        if self.mode != 2:
+            if self.state_machine.cur_state == Sliding:
+                return self.x - 30, self.y - 100, self.x + 50, self.y - 60
+            else:
+                return self.x - 15, self.y - 80, self.x + 35, self.y - 20
         else:
-            return self.x - 15, self.y - 80, self.x + 35, self.y - 20
+            if self.state_machine.cur_state == Sliding:
+                return self.x - 50, self.y - 100, self.x + 70, self.y - 45
+            else:
+                return self.x - 10, self.y - 70, self.x + 50, self.y + 30
 
     def handle_collision(self, group, other):
         # fill here
@@ -63,7 +69,8 @@ class Cookie:
         if group == 'cookie:energy':
             self.health += 10
         if group == 'cookie:giant':
-            pass
+            self.mode = 2
+            self.start_time = get_time()
         if group == 'cookie:sprint':
             self.mode = 1
             self.start_time = get_time()
@@ -87,7 +94,10 @@ class Run:
     def draw(cookie):
         if cookie.mode == 1:
             cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
-        cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y, 200, 200)
+        if cookie.mode != 2:
+            cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y, 200, 200)
+        else:
+            cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y + 50, 300, 300)
 
 class Sliding:
     @staticmethod
@@ -108,7 +118,10 @@ class Sliding:
     def draw(cookie):
         if cookie.mode == 1:
             cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 75, 250, 100)
-        cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+        if cookie.mode != 2:
+            cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+        else:
+            cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y + 50, 300, 300)
 
 class Jump1:
     @staticmethod
@@ -148,7 +161,10 @@ class Jump1:
     def draw(cookie):
         if cookie.mode == 1:
             cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
-        cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+        if cookie.mode != 2:
+            cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
+        else:
+            cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y + 50, 300, 300)
 
 class Jump2:
     @staticmethod
@@ -202,5 +218,9 @@ class Jump2:
     def draw(cookie):
         if cookie.mode == 1:
             cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
-        cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y, 200, 200)
+        if cookie.mode != 2:
+            cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y, 200, 200)
+        else :
+            cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y + 50, 300,
+                                         300)
 
