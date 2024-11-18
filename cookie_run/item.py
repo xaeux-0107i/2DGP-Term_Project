@@ -67,14 +67,16 @@ class Sprint:
         if self.image is None:
             print("질주화 이미지 로드 실패")
     def draw(self):
-        self.image.clip_draw(146 * self.frame, 0, 140, 142, self.x, self.y, 100, 100)
+        self.image.clip_draw(92 * self.frame, 0, 88, 88, self.x, self.y, 100, 100)
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
-        #self.x -= self.dx
+        self.x -= self.dx
         self.count += 1
         if self.count % 8 ==0:
             self.frame = (self.frame+1)%4
     def get_bb(self):
-        return self.x - 25, self.y - 25, self.x + 25, self.y + 25
+        return self.x - 45, self.y - 50, self.x + 45, self.y + 45
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:sprint':

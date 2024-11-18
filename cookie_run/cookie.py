@@ -53,7 +53,9 @@ class Cookie:
             self.health -= 5;
         if group == 'cookie:energy':
             self.health += 10
-        if group == 'cookie:energy':
+        if group == 'cookie:giant':
+            pass
+        if group == 'cookie:sprint':
             pass
 
 
