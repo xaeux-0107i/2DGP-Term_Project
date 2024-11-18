@@ -1,5 +1,6 @@
 from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision
-from item import Energy
+from item import Energy, Giant, Sprint
+from random import randint
 import game_world
 
 global max_num
@@ -43,10 +44,20 @@ def create_map(n, depth):
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         forkS2s = [ForkS2(i) for i in [950, 1050, 1350, 1450]]
         jellys = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 150), (1, 110), (2, 110), (3, 150),
-                                                           (4, 150), (5, 110), (6, 110), (7, 150)]]
+                                                            (4, 150), (5, 110), (6, 110), (7, 150)]]
         game_world.add_objects(fences, depth)
         game_world.add_objects(forkS2s, depth)
         game_world.add_objects(jellys, depth)
+
+        n = randint(0, 1)
+        if n == 0:
+            giant = Giant(800 + 400, 300)
+            game_world.add_object(giant, depth)
+            game_world.add_collision_pairs('cookie:giant', None, giant)
+        else:
+            sprint = Sprint(800 + 400, 300)
+            game_world.add_object(sprint, depth)
+            game_world.add_collision_pairs('cookie:sprint', None, sprint)
 
         for forkS2 in forkS2s:
             game_world.add_collision_pairs('cookie:obstacle', None, forkS2)
@@ -131,16 +142,19 @@ def create_energy_map(n, depth):
     elif n == 3:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         forkS2s = [ForkS2(i) for i in [950, 1050, 1350, 1450]]
+        giant = Giant(800 + 400, 300)
         jellys = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 150), (1, 110), (2, 110), (3, 150),
                                                            (4, 150), (5, 110), (6, 110), (7, 150)]]
         game_world.add_objects(fences, depth)
         game_world.add_objects(forkS2s, depth)
         game_world.add_objects(jellys, depth)
+        game_world.add_object(giant, depth)
 
         for forkS2 in forkS2s:
             game_world.add_collision_pairs('cookie:obstacle', None, forkS2)
         for jelly in jellys:
             game_world.add_collision_pairs('cookie:jelly', None, jelly)
+        game_world.add_collision_pairs('cookie:giant', None, giant)
     elif n == 4:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
         forks = [Fork(400 * i + 800 + 150) for i in range(0, 1)]

@@ -60,6 +60,7 @@ def init():
     game_world.add_collision_pairs('cookie:obstacle', cookie, None)
     game_world.add_collision_pairs('cookie:jelly', cookie, None)
     game_world.add_collision_pairs('cookie:energy', cookie, None)
+    game_world.add_collision_pairs('cookie:giant', cookie, None)
 
 def finish():
     game_world.clear()

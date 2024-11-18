@@ -53,6 +53,8 @@ class Cookie:
             self.health -= 5;
         if group == 'cookie:energy':
             self.health += 10
+        if group == 'cookie:energy':
+            pass
 
 
 class Run:
