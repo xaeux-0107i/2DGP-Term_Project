@@ -1,5 +1,6 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 import game_world
+import play_mode
 global speed
 speed = 4
 
@@ -15,8 +16,10 @@ class Energy:
             print("포션 이미지 로드 실패")
     def draw(self):
         self.image.clip_draw(146 * self.frame, 0, 140, 142, self.x, self.y, 100, 100)
+        if play_mode.collision_box:
+            draw_rectangle(*self.get_bb())
     def update(self):
-        #self.x -= self.dx
+        self.x -= self.dx
         self.count += 1
         if self.count % 8 ==0:
             self.frame = (self.frame+1)%4

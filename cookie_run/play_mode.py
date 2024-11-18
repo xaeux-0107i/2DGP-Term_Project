@@ -4,7 +4,7 @@ import game_framework
 from random import randint
 from backgound import Background, Flame
 from cookie import Cookie
-from mapSeed import create_map, max_num
+from mapSeed import create_map, max_num, create_energy_map
 from UI import HealthBar, ScoreUI
 from item import Energy
 
@@ -59,6 +59,7 @@ def init():
 
     game_world.add_collision_pairs('cookie:obstacle', cookie, None)
     game_world.add_collision_pairs('cookie:jelly', cookie, None)
+    game_world.add_collision_pairs('cookie:energy', cookie, None)
 
 def finish():
     game_world.clear()
@@ -69,20 +70,32 @@ def update():
 
     count += 2 * speed
     if count % 800 == 0:
-        if change % 2 == 0:
-            #game_world.objects[1].clear()
-            for o in game_world.objects[1]:
-                game_world.remove_object(o)
-            create_map(randint(1, max_num), 1)
-            change += 1
-            print('map1 초기화')
-        else:
-            #game_world.objects[2].clear()
-            for o in game_world.objects[2]:
-                game_world.remove_object(o)
-            create_map(randint(1, max_num), 2)
-            change += 1
-            print('map2 초기화')
+        if change % 10 == 0 and change >= 10:
+            if change % 2 == 0:
+                for o in game_world.objects[1]:
+                    game_world.remove_object(o)
+                create_energy_map(0, 1)
+                change += 1
+                print('map1 물약 생성')
+            else:
+                for o in game_world.objects[2]:
+                    game_world.remove_object(o)
+                create_energy_map(0, 2)
+                change += 1
+                print('map2 물약 생성')
+        else :
+            if change % 2 == 0:
+                for o in game_world.objects[1]:
+                    game_world.remove_object(o)
+                create_map(randint(1, max_num), 1)
+                change += 1
+                print('map1 초기화')
+            else:
+                for o in game_world.objects[2]:
+                    game_world.remove_object(o)
+                create_map(randint(1, max_num), 2)
+                change += 1
+                print('map2 초기화')
 
     game_world.update()
     game_world.handle_collisions()
