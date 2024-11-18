@@ -101,7 +101,10 @@ def update():
 
     game_world.update()
     game_world.handle_collisions()
-    delay(0.02)
+    if cookie.mode == 1:
+        delay(0.01)
+    else :
+        delay(0.02)
 
 def draw():
     clear_canvas()

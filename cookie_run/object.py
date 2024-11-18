@@ -3,6 +3,7 @@ import game_world
 import play_mode
 global speed
 from random import randint
+
 speed = 4
 
 class Fence:
@@ -58,7 +59,8 @@ class Olive:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            pass
+            if play_mode.cookie.mode == 1:
+                game_world.remove_object(self)
 
 class Fork:
     def __init__(self, x):
@@ -78,7 +80,9 @@ class Fork:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            pass
+            if play_mode.cookie.mode == 1:
+                game_world.remove_object(self)
+
 
 
 class ForkS1:
@@ -99,7 +103,8 @@ class ForkS1:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            pass
+            if play_mode.cookie.mode == 1:
+                game_world.remove_object(self)
 
 class ForkS2:
     def __init__(self, x):
@@ -119,7 +124,8 @@ class ForkS2:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            pass
+            if play_mode.cookie.mode == 1:
+                game_world.remove_object(self)
 
 class Poision:
     def __init__(self, x, y):
@@ -145,4 +151,5 @@ class Poision:
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':
-            pass
+            if play_mode.cookie.mode == 1:
+                game_world.remove_object(self)

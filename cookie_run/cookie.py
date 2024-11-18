@@ -11,6 +11,7 @@ class Cookie:
         self.dy = 0
         self.health = 400
         self.score = 0
+        self.mode = 0
         self.state_machine = StateMachine(self)
         self.state_machine.start(Run)
         self.state_machine.set_transitions(
@@ -25,6 +26,7 @@ class Cookie:
         self.image_sliding = load_image('cookie_image/brave_cookie_sliding.png')  # 칸 당 가로: 269  세로: 268
         self.image_jump = load_image('cookie_image/brave_cookie_jump.png') # 가로 270 세로 268
         self.image_jump2 = load_image('cookie_image/brave_cookie_jump2.png')
+        self.dash_effect = load_image('object_image/jelly_and_items/dash_effect.png') # 198 x 136
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         self.state_machine.draw()
@@ -50,13 +52,14 @@ class Cookie:
         if group == 'cookie:jelly':
             self.score += 1
         if group == 'cookie:obstacle':
-            self.health -= 5;
+            if self.mode == 0:
+                self.health -= 5;
         if group == 'cookie:energy':
             self.health += 10
         if group == 'cookie:giant':
             pass
         if group == 'cookie:sprint':
-            pass
+            self.mode = 1
 
 
 class Run:
@@ -75,6 +78,8 @@ class Run:
 
     @staticmethod
     def draw(cookie):
+        if cookie.mode == 1:
+            cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
         cookie.image_running.clip_draw(cookie.frame + 2 + 270 * cookie.frame, 0, 260, 268, cookie.x, cookie.y, 200, 200)
 
 class Sliding:
@@ -94,6 +99,8 @@ class Sliding:
 
     @staticmethod
     def draw(cookie):
+        if cookie.mode == 1:
+            cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 75, 250, 100)
         cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
 
 class Jump1:
@@ -132,8 +139,9 @@ class Jump1:
 
     @staticmethod
     def draw(cookie):
+        if cookie.mode == 1:
+            cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
         cookie.image_jump.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
-
 
 class Jump2:
     @staticmethod
@@ -185,5 +193,7 @@ class Jump2:
 
     @staticmethod
     def draw(cookie):
+        if cookie.mode == 1:
+            cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 50, 200, 150)
         cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y, 200, 200)
 
