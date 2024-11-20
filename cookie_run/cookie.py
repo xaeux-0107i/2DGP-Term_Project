@@ -30,11 +30,17 @@ class Cookie:
         self.image_jump = load_image('cookie_image/brave_cookie_jump.png') # 가로 270 세로 268
         self.image_jump2 = load_image('cookie_image/brave_cookie_jump2.png')
         self.dash_effect = load_image('object_image/jelly_and_items/dash_effect.png') # 198 x 136
+        self.hit_image = load_image('object_image/jelly_and_items/hit_image.png') # 758x528
         self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
     def draw(self):
         self.state_machine.draw()
         if play_mode.collision_box:
             draw_rectangle(*self.get_bb())
+        if self.hit_time != 0:
+            current_time = get_time()
+            if current_time - self.hit_time < 0.5:
+                self.hit_image.opacify(150)
+                self.hit_image.clip_draw(0, 0, 758, 528, 400, 300, 800, 600)
 
     def update(self):
         self.state_machine.update()
