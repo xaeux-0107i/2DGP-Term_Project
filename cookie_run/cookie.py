@@ -13,6 +13,8 @@ class Cookie:
         self.score = 0
         self.mode = 0
         self.start_time = 0
+        self.unbeatable = 0
+        self.hit_time = 0
         self.state_machine = StateMachine(self)
         self.state_machine.start(Run)
         self.state_machine.set_transitions(
@@ -37,11 +39,15 @@ class Cookie:
     def update(self):
         self.state_machine.update()
         self.health -= 0.1
+        current_time = get_time()
         if self.start_time != 0:
-            current_time = get_time()
             if current_time - self.start_time > 3:
                 self.mode = 0
                 self.start_time = 0
+        if self.hit_time != 0:
+            if current_time - self.hit_time > 2:
+                self.unbeatable = 0
+                self.hit_time = 0
         pass
 
     def handle_event(self, event):
@@ -64,10 +70,12 @@ class Cookie:
         if group == 'cookie:jelly':
             self.score += 1
         if group == 'cookie:obstacle':
-            if self.mode == 0:
-                self.health -= 5;
+            if self.mode == 0 and self.unbeatable == 0:
+                self.health -= 30;
+                self.hit_time = get_time()
+                self.unbeatable = 1
         if group == 'cookie:energy':
-            self.health += 10
+            self.health += 30
         if group == 'cookie:giant':
             self.mode = 2
             self.start_time = get_time()
