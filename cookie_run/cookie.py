@@ -80,6 +80,8 @@ class Cookie:
                 self.health -= 30;
                 self.hit_time = get_time()
                 self.unbeatable = 1
+            else:
+                self.score += 1
         if group == 'cookie:energy':
             self.health += 30
         if group == 'cookie:giant':
