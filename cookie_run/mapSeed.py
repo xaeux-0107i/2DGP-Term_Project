@@ -105,8 +105,7 @@ def create_map(n, depth):
 def create_energy_map(n, depth):
 
     if n == 0: # 체력 물약 생성
-        energy = Energy(1250, 300)
-        fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
+        energy = Energy(1300, 300)
         fences = [Fence(100 * i + 800 + 50) for i in [0, 1, 2, 4, 5, 7, 8]]
         game_world.add_objects(fences, depth)
         game_world.add_object(energy, depth)
