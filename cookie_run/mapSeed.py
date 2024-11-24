@@ -1,4 +1,4 @@
-from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision
+from object import Fence, Jelly, Olive, Fork, ForkS1, ForkS2, Poision, Hole
 from item import Energy, Giant, Sprint
 from random import randint
 import game_world
@@ -107,7 +107,9 @@ def create_energy_map(n, depth):
     if n == 0: # 체력 물약 생성
         energy = Energy(1300, 300)
         fences = [Fence(100 * i + 800 + 50) for i in [0, 1, 2, 4, 5, 7, 8]]
+        holes = [Hole(100*i + 800 + 50) for i in [3,6]]
         game_world.add_objects(fences, depth)
         game_world.add_object(energy, depth)
+        game_world.add_objects(holes, depth)
         game_world.add_collision_pairs('cookie:energy', None, energy)
 

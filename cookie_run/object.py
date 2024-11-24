@@ -157,18 +157,15 @@ class Poision:
 class Hole:
     def __init__(self, x):
         self.x = x #50
+        self.y = 40
         self.dx = 2*speed
-        if self.image is None:
-            print("펜스 이미지 로드 실패")
     def draw(self):
-        #self.image.clip_draw(0, 0, 124, 120, self.x, 40, 100, 80)
         if play_mode.collision_box:
             draw_rectangle(*self.get_bb())
     def update(self):
         self.x -= self.dx
-        pass
     def get_bb(self):
-        return self.x - 50, self.y - 40, self.x - 50, self.y + 40
+        return self.x - 40, self.y - 40, self.x + 40, self.y + 60
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:hole':

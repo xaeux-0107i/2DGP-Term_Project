@@ -72,7 +72,7 @@ def update():
 
     count += 2 * speed
     if count % 800 == 0:
-        if change % 10 == 0 and change >= 10:
+        if change % 2 == 0 and change >= 2:
             if change % 2 == 0:
                 for o in game_world.objects[1]:
                     game_world.remove_object(o)
