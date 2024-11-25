@@ -112,4 +112,6 @@ def create_energy_map(n, depth):
         game_world.add_object(energy, depth)
         game_world.add_objects(holes, depth)
         game_world.add_collision_pairs('cookie:energy', None, energy)
+        for hole in holes:
+            game_world.add_collision_pairs('cookie:hole', None, hole)
 

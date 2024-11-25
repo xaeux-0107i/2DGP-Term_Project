@@ -90,6 +90,13 @@ class Cookie:
         if group == 'cookie:sprint':
             self.mode = 1
             self.start_time = get_time()
+        if group == 'cookie:hole':
+            if self.unbeatable != 1: #무적 상태가 아닐 때
+                self.y -= 15
+                print(self.y)
+                if self.y <= 15:
+                    self.y = - 100
+                    self.health = 0
 
 
 class Run:
