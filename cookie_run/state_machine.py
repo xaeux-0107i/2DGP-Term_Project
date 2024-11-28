@@ -15,6 +15,12 @@ def space_down(e):
 def change_state(e):
     return e[0] == 'CHANGE'
 
+def dead(e):
+    return e[0] == 'DEAD'
+
+def fall(e):
+    return e[0] == 'FALL'
+
 class StateMachine:
     def __init__(self, o):
         self.o = o

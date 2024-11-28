@@ -1,6 +1,7 @@
-from pico2d import load_image, draw_rectangle, get_time
+from pico2d import load_image, draw_rectangle, get_time, delay
 from state_machine import *
 import play_mode
+import game_framework
 
 class Cookie:
     def __init__(self):
@@ -19,10 +20,12 @@ class Cookie:
         self.state_machine.start(Run)
         self.state_machine.set_transitions(
             {
-                Run: {down_down: Sliding, space_down: Jump1},
-                Sliding: {down_up: Run},
-                Jump1: {down_down: Sliding, space_down: Jump2, change_state: Run},
-                Jump2: {down_down: Sliding, change_state: Run}
+                Run: {down_down: Sliding, space_down: Jump1, dead: Death, fall:Fall},
+                Sliding: {down_up: Run, dead: Death},
+                Jump1: {down_down: Sliding, space_down: Jump2, change_state: Run, dead: Death, fall:Fall},
+                Jump2: {down_down: Sliding, change_state: Run, dead: Death, fall:Fall},
+                Death:{},
+                Fall:{}
             }
         )
         self.image_running = load_image('cookie_image/brave_cookie_running.png') # 칸 당 가로: 270  세로: 268
@@ -31,14 +34,14 @@ class Cookie:
         self.image_jump2 = load_image('cookie_image/brave_cookie_jump2.png')
         self.dash_effect = load_image('object_image/jelly_and_items/dash_effect.png') # 198 x 136
         self.hit_image = load_image('object_image/jelly_and_items/hit_image.png') # 758x528
-        self.state = 0 # 0 - 달리기, 1 - 점프, 2- 슬라이딩, 3 - 2단 점프 4 - 캐릭터 사망
+        self.die_image = load_image('cookie_image/brave_cookie_die.png') # 270 x 267
     def draw(self):
         self.state_machine.draw()
         if play_mode.collision_box:
             draw_rectangle(*self.get_bb())
-        if self.hit_time != 0:
+        if self.hit_time != 0: # 충돌 이펙트
             current_time = get_time()
-            if current_time - self.hit_time < 0.5:
+            if current_time - self.hit_time < 0.3 and self.health > 0:
                 self.hit_image.opacify(150)
                 self.hit_image.clip_draw(0, 0, 758, 528, 400, 300, 800, 600)
 
@@ -54,6 +57,8 @@ class Cookie:
             if current_time - self.hit_time > 2:
                 self.unbeatable = 0
                 self.hit_time = 0
+        if self.health <= 0:
+            self.state_machine.add_event(('DEAD', 0))
         pass
 
     def handle_event(self, event):
@@ -78,6 +83,8 @@ class Cookie:
         if group == 'cookie:obstacle':
             if self.mode == 0 and self.unbeatable == 0:
                 self.health -= 30;
+                if self.health < 0:
+                    self.health = 0
                 self.hit_time = get_time()
                 self.unbeatable = 1
             else:
@@ -91,12 +98,10 @@ class Cookie:
             self.mode = 1
             self.start_time = get_time()
         if group == 'cookie:hole':
-            if self.unbeatable != 1: #무적 상태가 아닐 때
-                self.y -= 15
+                self.y -= 20
+                if self.y <= 50: # 낙사 처리
+                    self.state_machine.add_event(('FALL', 0))
                 print(self.y)
-                if self.y <= 15:
-                    self.y = - 100
-                    self.health = 0
 
 
 class Run:
@@ -139,7 +144,7 @@ class Sliding:
 
     @staticmethod
     def draw(cookie):
-        if cookie.mode == 1:
+        if cookie.mode == 1: # 질주화 이펙트 그리기
             cookie.dash_effect.clip_draw(0, 0, 198, 136, cookie.x - 50, cookie.y - 75, 250, 100)
         if cookie.mode != 2:
             cookie.image_sliding.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 268, cookie.x, cookie.y, 200, 200)
@@ -246,4 +251,50 @@ class Jump2:
         else :
             cookie.image_jump2.clip_draw(cookie.frame + 3 + 270 * cookie.frame, 0, 263, 268, cookie.x, cookie.y + 50, 300,
                                          300)
+
+class Death:
+    @staticmethod
+    def enter(cookie, e):
+        cookie.frame = 0
+        cookie.y = 180
+        pass
+
+    @staticmethod
+    def exit(cookie, e):
+        pass
+
+    @staticmethod
+    def do(cookie):
+        if cookie.frame != 4:
+            cookie.frame = (cookie.frame + 1) % 5
+            delay(0.3)
+        if cookie.frame == 4:
+            delay(2.0)
+            game_framework.quit()
+        pass
+
+    @staticmethod
+    def draw(cookie):
+        cookie.die_image.clip_draw(cookie.frame + 270 * cookie.frame, 0, 265, 267, cookie.x, cookie.y, 200, 200)
+
+class Fall:
+    @staticmethod
+    def enter(cookie, e):
+        cookie.health = 0;
+        pass
+
+    @staticmethod
+    def exit(cookie, e):
+        pass
+
+    @staticmethod
+    def do(cookie):
+        delay(2.0)
+        game_framework.quit()
+        pass
+
+    @staticmethod
+    def draw(cookie):
+        pass
+
 
