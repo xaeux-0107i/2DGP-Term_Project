@@ -2,6 +2,7 @@ from pico2d import load_image, draw_rectangle, get_time, delay
 from state_machine import *
 import play_mode
 import game_framework
+import result_mode as next_mode
 
 class Cookie:
     def __init__(self):
@@ -270,7 +271,7 @@ class Death:
             delay(0.3)
         if cookie.frame == 4:
             delay(2.0)
-            game_framework.quit()
+            game_framework.change_mode(next_mode)
         pass
 
     @staticmethod
@@ -290,7 +291,7 @@ class Fall:
     @staticmethod
     def do(cookie):
         delay(2.0)
-        game_framework.quit()
+        game_framework.change_mode(next_mode)
         pass
 
     @staticmethod
