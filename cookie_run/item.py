@@ -18,6 +18,7 @@ class Energy:
             print("포션 이미지 로드 실패")
         if not Energy.energy_sound:
             Energy.energy_sound = load_wav('sounds/get_energy.wav')
+            Energy.energy_sound.set_volume(32)
     def draw(self):
         self.image.clip_draw(146 * self.frame, 0, 140, 142, self.x, self.y, 100, 100)
         if play_mode.collision_box:

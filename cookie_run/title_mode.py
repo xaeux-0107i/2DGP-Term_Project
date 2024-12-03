@@ -1,11 +1,14 @@
-from pico2d import load_image, get_events, clear_canvas, update_canvas, load_music
+from pico2d import load_image, get_events, clear_canvas, update_canvas, load_music,delay
 import game_framework
 from sdl2 import SDL_QUIT, SDLK_ESCAPE, SDL_KEYDOWN, SDLK_SPACE
 import play_mode
 
 def init():
     global image
+    global sound
     image = load_image('background_image/title.png')
+    sound = load_music('sounds/game_start_sound.mp3')
+    sound.set_volume(32)
 
 def finish():
     global image
@@ -19,9 +22,9 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            sound = load_music('sounds/game_start_sound.mp3')
-            sound.set_volume(32)
-            sound.play()
+            global sound
+            sound.play(1)
+            delay(3)
             game_framework.change_mode(play_mode)
 
 def draw():

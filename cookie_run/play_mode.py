@@ -73,7 +73,7 @@ def update():
 
     count += 2 * speed
     if count % 800 == 0:
-        if change % 2 == 0 and change >= 2: # 체력 물약 맵 생성
+        if change % 10 == 0 and change >= 10: # 체력 물약 맵 생성
             if change % 2 == 0:
                 for o in game_world.objects[1]:
                     game_world.remove_object(o)

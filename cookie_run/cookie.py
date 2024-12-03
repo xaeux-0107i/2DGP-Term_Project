@@ -94,9 +94,11 @@ class Cookie:
         if group == 'cookie:jelly':
             self.score += 1
         if group == 'cookie:obstacle':
-            if self.mode == 0 and self.unbeatable == 0:
-                self.health -= 30;
+            if self.state_machine.cur_state == Death:
+                pass
+            elif self.mode == 0 and self.unbeatable == 0:
                 Cookie.hit_sound.play(1)
+                self.health -= 30;
                 if self.health < 0:
                     self.health = 0
                 self.hit_time = get_time()
@@ -275,9 +277,6 @@ class Death:
     def enter(cookie, e):
         cookie.frame = 0
         cookie.y = 180
-        sound = load_music('sounds/game_end_sound.mp3')
-        sound.set_volume(32)
-        sound.play()
         pass
 
     @staticmethod
@@ -290,6 +289,9 @@ class Death:
             cookie.frame = (cookie.frame + 1) % 5
             delay(0.3)
         if cookie.frame == 4:
+            sound = load_music('sounds/game_end_sound.mp3')
+            sound.set_volume(32)
+            sound.play(1)
             delay(2.0)
             game_framework.change_mode(next_mode)
         pass

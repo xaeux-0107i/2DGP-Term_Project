@@ -171,7 +171,7 @@ class Hole:
     def update(self):
         self.x -= self.dx
     def get_bb(self):
-        return self.x - 40, self.y - 40, self.x + 40, self.y + 60
+        return self.x - 20, self.y - 40, self.x + 20, self.y + 60
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:hole':
