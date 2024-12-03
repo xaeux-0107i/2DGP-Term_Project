@@ -1,10 +1,14 @@
-from pico2d import load_image, draw_rectangle, get_time, delay
+from pico2d import load_image, draw_rectangle, get_time, delay, load_wav, load_music
 from state_machine import *
 import play_mode
 import game_framework
 import result_mode as next_mode
 
 class Cookie:
+    jump_sound = None
+    hit_sound = None
+    slide_sound = None
+
     def __init__(self):
         self.frame = 0
         self.jump_count = 0
@@ -36,6 +40,14 @@ class Cookie:
         self.dash_effect = load_image('object_image/jelly_and_items/dash_effect.png') # 198 x 136
         self.hit_image = load_image('object_image/jelly_and_items/hit_image.png') # 758x528
         self.die_image = load_image('cookie_image/brave_cookie_die.png') # 270 x 267
+        if not Cookie.jump_sound:
+            Cookie.hit_sound = load_wav('sounds/crash_sound.wav')
+            Cookie.hit_sound.set_volume(32)
+            Cookie.jump_sound = load_wav('sounds/jump.wav')
+            Cookie.jump_sound.set_volume(32)
+            Cookie.slide_sound = load_wav('sounds/slide.wav')
+            Cookie.slide_sound.set_volume(32)
+
     def draw(self):
         self.state_machine.draw()
         if play_mode.collision_box:
@@ -84,6 +96,7 @@ class Cookie:
         if group == 'cookie:obstacle':
             if self.mode == 0 and self.unbeatable == 0:
                 self.health -= 30;
+                Cookie.hit_sound.play(1)
                 if self.health < 0:
                     self.health = 0
                 self.hit_time = get_time()
@@ -131,6 +144,7 @@ class Run:
 class Sliding:
     @staticmethod
     def enter(cookie, e):
+        Cookie.slide_sound.play(1)
         cookie.y = 180
         pass
 
@@ -158,6 +172,7 @@ class Jump1:
         cookie.jump_count = 0
         cookie.frame = 0
         cookie.dy = 15
+        Cookie.jump_sound.play(1)
         pass
 
     @staticmethod
@@ -201,6 +216,7 @@ class Jump2:
         cookie.jump_count = 0
         cookie.frame = 0
         cookie.dy = 15
+        Cookie.jump_sound.play(1)
         pass
 
     @staticmethod
@@ -258,6 +274,9 @@ class Death:
     def enter(cookie, e):
         cookie.frame = 0
         cookie.y = 180
+        sound = load_music('sounds/game_end_sound.mp3')
+        sound.set_volume(32)
+        sound.play()
         pass
 
     @staticmethod
@@ -290,6 +309,9 @@ class Fall:
 
     @staticmethod
     def do(cookie):
+        sound = load_music('sounds/game_end_sound.mp3')
+        sound.set_volume(32)
+        sound.play()
         delay(2.0)
         game_framework.change_mode(next_mode)
         pass
