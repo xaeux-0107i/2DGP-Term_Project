@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, load_music
 
 global speed
 speed = 4
@@ -11,6 +11,9 @@ class Background:
         self.dx = 0
         if self.image is None:
             print("배경 이미지 로드 실패")
+        self.bgm = load_music('sounds/oven_bgm.mp3')
+        self.bgm.set_volume(32)
+        self.bgm.repeat_play()
     def draw(self):
         self.image.clip_draw(0, 0, 567, 320, 400 - self.dx, 300, 800, 600)
         self.image.clip_draw(0, 0, 567, 320, 1200 - self.dx, 300, 800, 600)
