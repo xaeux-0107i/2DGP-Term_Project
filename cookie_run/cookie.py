@@ -103,6 +103,7 @@ class Cookie:
                 self.unbeatable = 1
             else:
                 self.score += 1
+                Cookie.hit_sound.play(1)
         if group == 'cookie:energy':
             self.health += 30
         if group == 'cookie:giant':
