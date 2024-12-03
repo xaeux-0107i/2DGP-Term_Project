@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import load_image, draw_rectangle, load_music, load_wav
 import game_world
 import play_mode
 global speed
@@ -20,11 +20,16 @@ class Fence:
         pass
 
 class Jelly:
+    jelly_sound = None
+
     def __init__(self, x, y):
         self.image = load_image('object_image/jelly_and_items/jelly.png')
         self.x = x #50
         self.y = y # 130
         self.dx = 2*speed
+        if not Jelly.jelly_sound:
+            Jelly.jelly_sound = load_wav('sounds/get_jelly.wav')
+            Jelly.jelly_sound.set_volume(32)
         if self.image is None:
             print("젤리 이미지 로드 실패")
     def draw(self):
@@ -39,6 +44,7 @@ class Jelly:
         # fill here
         if group == 'cookie:jelly':
             game_world.remove_object(self)
+            Jelly.jelly_sound.play(1)
 
 class Olive:
     def __init__(self, x):
