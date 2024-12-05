@@ -65,7 +65,7 @@ def create_map(n, depth):
             game_world.add_collision_pairs('cookie:jelly', None, jelly)
     elif n == 4:
         fences = [Fence(i * 100 + 800 + 50) for i in range(0, 8)]
-        forks = [Fork(400 * i + 800 + 150) for i in range(0, 1)]
+        forks = [Fork(400 * i + 800 + 250) for i in range(0, 1)]
         forkS1s = [ForkS1(400* i + 800 + 350) for i in range(0, 1)]
         forkS2s = [ForkS2(1400)]
         jellys = [Jelly(100 * i + 800 + 50, j) for i, j in [(0, 120), (1, 200), (2, 250), (3, 300),

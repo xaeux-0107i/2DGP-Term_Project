@@ -1,4 +1,4 @@
-from pico2d import load_image, get_events, clear_canvas, update_canvas, load_music,delay
+from pico2d import load_image, get_events, clear_canvas, update_canvas, load_music,delay, load_font
 import game_framework
 from sdl2 import SDL_QUIT, SDLK_ESCAPE, SDL_KEYDOWN, SDLK_SPACE
 import play_mode
@@ -30,6 +30,8 @@ def handle_events():
 def draw():
     clear_canvas()
     image.clip_draw(0, 0, 910, 512, 400, 300, 800, 600)
+    font = load_font('Arial.ttf', 50)
+    font.draw(150, 50, "Press space bar to start", (255, 255, 255))
     update_canvas()
 
 def update():

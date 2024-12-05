@@ -1,6 +1,6 @@
 from pico2d import load_image, get_events, clear_canvas, update_canvas, load_font
 import game_framework
-from sdl2 import SDL_QUIT, SDLK_ESCAPE, SDL_KEYDOWN, SDLK_SPACE
+from sdl2 import SDL_QUIT, SDLK_ESCAPE, SDL_KEYDOWN, SDLK_SPACE, SDLK_r
 import play_mode
 
 def init():

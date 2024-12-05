@@ -126,7 +126,7 @@ class ForkS2:
     def update(self):
         self.x -= self.dx
     def get_bb(self):
-        return self.x - 40, 400 - 230, self.x + 40, 400 + 250
+        return self.x - 40, 400 - 240, self.x + 40, 400 + 250
     def handle_collision(self, group, other):
         # fill here
         if group == 'cookie:obstacle':

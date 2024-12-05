@@ -103,7 +103,7 @@ class Cookie:
                     self.health = 0
                 self.hit_time = get_time()
                 self.unbeatable = 1
-            else:
+            elif self.mode != 0:
                 self.score += 1
                 Cookie.hit_sound.play(1)
         if group == 'cookie:energy':
@@ -116,7 +116,7 @@ class Cookie:
             self.start_time = get_time()
         if group == 'cookie:hole':
                 self.y -= 20
-                if self.y <= 50: # 낙사 처리
+                if self.y <= 70: # 낙사 처리
                     self.state_machine.add_event(('FALL', 0))
                 print(self.y)
 
@@ -124,6 +124,7 @@ class Cookie:
 class Run:
     @staticmethod
     def enter(cookie, e):
+        cookie.y = 180;
         pass
 
     @staticmethod
@@ -253,13 +254,12 @@ class Jump2:
             cookie.dy += 1
             cookie.frame = 5
 
-        if cookie.y <= 180:
+        cookie.jump_count += 1
+        if cookie.y < 180:
             # 점프가 끝나면 달리기 상태로 돌아감
             cookie.jump_count = 0  # 점프 카운트 초기화
             cookie.y = 180
             cookie.state_machine.add_event(('CHANGE', 0))
-
-        cookie.jump_count += 1
         pass
 
     @staticmethod
